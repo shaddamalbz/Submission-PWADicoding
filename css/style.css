@@ -41,6 +41,10 @@ a{
   margin: 20px 0;
 }
 
+.sub-title{
+  margin: 0 0 20px 0;
+}
+
 .teams{
   height: 200px;
 }
@@ -50,10 +54,10 @@ a{
   padding: 0 25px;
 }
 .teams td:nth-child(1){
-  width: 20%;
+  width: 15%;
 }
 .teams td:nth-child(3){
-  width: 20%;
+  width: 30%;
 }
 
 .linked{
@@ -61,8 +65,14 @@ a{
   font-weight: bold;
 }
 
+.team-logo{
+  height: 100px;
+  width: auto;
+  margin: 25px 0 0 0;
+}
+
 @media screen and (max-width: 600px){
-  h4,p{
+  h4{
     text-align: center;
   }
   .about-bio{

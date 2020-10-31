@@ -1,7 +1,13 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 document.addEventListener('DOMContentLoaded', () => {
+  // deklarasi nilai awal variable
+  let page = window.location.hash.substr(1);
+  let urlTeamParameter = window.location.hash.substr(9);
+  if (page === '') page = 'home';
+
   // function untuk load page berdasarkan navigasi
   function loadPage(page) {
     const xhr = new XMLHttpRequest();
@@ -18,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
           getStandingSpn();
         } else if (page === 'ligaPrc') {
           getStandingPrc();
+        } else if (urlTeamParameter.length > 0) {
+          getTeams(urlTeamParameter);
+          urlTeamParameter = '';
         }
 
         // perkondisian status XMLHttpRequest
@@ -36,18 +45,16 @@ document.addEventListener('DOMContentLoaded', () => {
       || page === 'ligaSpn'
       || page === 'ligaPrc'
     ) {
-      xhr.open('GET', 'pages/standings.html', true);
+      xhr.open('GET', '/pages/standings.html', true);
+      xhr.send();
+    } else if (urlTeamParameter.length > 0) {
+      xhr.open('GET', '/pages/teams.html', true);
       xhr.send();
     } else {
       xhr.open('GET', `pages/${page}.html`, true);
       xhr.send();
     }
   }
-
-  // deklarasi nilai awal variable
-  let page = window.location.hash.substr(1);
-  if (page === '') page = 'home';
-  loadPage(page);
 
   // Fungsi untuk top navbar
   function topNav() {
@@ -113,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     xhr.open('GET', '/pages/nav.html', true);
     xhr.send();
   }
-  topNav();
   sideNav();
+  topNav();
+  loadPage(page);
 });

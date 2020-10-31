@@ -41,8 +41,8 @@ function showStanding(data) {
     standings += `
       <table class="z-depth-1 rounded">
         <tr class="teams">
-          <td><img class="team-logo" src="${standing.team.crestUrl.replace(/^http:\/\//i, 'https://')}" alt="Logo Tim"/></td>
-          <td><a class="linked" href="#">${standing.team.name}</a> <br> <p>${standing.won} <span class="green-text">Win</span></p><p>${standing.draw} <span class="grey-text">Draw</span></p><p>${standing.lost} <span class="red-text">Lose</span></p></td>
+          <td><img src="${standing.team.crestUrl.replace(/^http:\/\//i, 'https://')}" alt="Logo Tim"/></td>
+          <td><a class="linked" href="#team?id=${standing.team.id}">${standing.team.name}</a><p>${standing.won} <span class="green-text">Win</span></p><p>${standing.draw} <span class="grey-text">Draw</span></p><p>${standing.lost} <span class="red-text">Lose</span></p></td>
           <td>Poin :<strong> ${standing.points}</strong> <br>Posisi ke- <strong> ${standing.position} </strong></td>
         </tr>
       </table>
@@ -54,19 +54,31 @@ function showStanding(data) {
     <div class="col s12">
       <h3 class="text-center white-text">${data.competition.name}</h3>
     </div>
-    <div class="col s6 text-center">
-      <h7 class="white-text">Time : ${data.season.startDate} - ${data.season.endDate}</h7>
+    <div class="col s6 text-center sub-title">
+      <h7 class="white-text">${data.season.startDate} - ${data.season.endDate}</h7>
     </div>
     <div class="col s6 text-center">
-      <h7 class="white-text">Area : ${data.competition.area.name}</h7>
+      <h7 class="white-text">${data.competition.area.name}</h7>
     </div>
   </div>
   ${standings}
   `;
 }
 
-function showTeam(data) {
+function showTeam(team) {
+  let player = '';
+  const teamsElm = document.getElementById('teams-detail');
 
+  teamsElm.innerHTML = `
+  <div class="row rounded title grey darken-4">
+    <div class="col s12 text-center teams-logo">
+      <img class="team-logo" alt="logo team" src="${team.crestUrl.replace(/^http:\/\//i, 'https://')}"/>
+    </div>
+    <div class="col s12">
+      <h3 class="text-center white-text">${team.name}</h3>
+    </div>
+  </div>
+  `;
 }
 
 function getStandingIng() {
@@ -123,4 +135,17 @@ function getStandingPrc() {
       showStanding(data);
     })
     .catch(error);
+}
+
+function getTeams(id) {
+  fetch(`${baseURL}teams/${id}`, {
+    headers: {
+      'X-Auth-Token': tokenAPI,
+    },
+  })
+    .then(status)
+    .then(json)
+    .then((team) => {
+      showTeam(team);
+    });
 }
