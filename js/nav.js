@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         const content = document.querySelector('#body-content');
+
+        // ngecek page nya
+        if (page === 'ligaIng') {
+          getStandingIng();
+        } else if (page === 'ligaJer') {
+          getStandingJer();
+        } else if (page === 'ligaSpn') {
+          getStandingSpn();
+        } else if (page === 'ligaPrc') {
+          getStandingPrc();
+        }
+
+        // perkondisian status XMLHttpRequest
         if (xhr.status === 200) {
           content.innerHTML = xhr.responseText;
         } else if (xhr.status === 404) {
@@ -17,8 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     };
-    xhr.open('GET', `pages/${page}.html`, true);
-    xhr.send();
+    if (
+      page === 'ligaIng'
+      || page === 'ligaJer'
+      || page === 'ligaSpn'
+      || page === 'ligaPrc'
+    ) {
+      xhr.open('GET', 'pages/standings.html', true);
+      xhr.send();
+    } else {
+      xhr.open('GET', `pages/${page}.html`, true);
+      xhr.send();
+    }
   }
 
   // deklarasi nilai awal variable

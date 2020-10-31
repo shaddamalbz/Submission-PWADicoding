@@ -29,8 +29,36 @@ a{
   border-radius: 50%;
 }
 
+.rounded{
+  border-radius: 15px;
+}
+
 .about-bio{
   margin-top: 5%;
+}
+
+.title{
+  margin: 20px 0;
+}
+
+.teams{
+  height: 200px;
+}
+.teams img{
+  height: 100px;
+  width: auto;
+  padding: 0 25px;
+}
+.teams td:nth-child(1){
+  width: 20%;
+}
+.teams td:nth-child(3){
+  width: 20%;
+}
+
+.linked{
+  color: #212121;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 600px){
