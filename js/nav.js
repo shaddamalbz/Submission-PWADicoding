@@ -2,59 +2,63 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+function loadPage(page) {
+  let urlTeamParameter = window.location.hash.substr(9);
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4) {
+      const content = document.querySelector('#body-content');
+
+      // ngecek page nya
+      if (page === 'ligaIng') {
+        getStandingIng();
+      } else if (page === 'ligaJer') {
+        getStandingJer();
+      } else if (page === 'ligaSpn') {
+        getStandingSpn();
+      } else if (page === 'ligaPrc') {
+        getStandingPrc();
+      } else if (urlTeamParameter.length > 0) {
+        getTeams(urlTeamParameter);
+        urlTeamParameter = '';
+      }
+
+      // perkondisian status XMLHttpRequest
+      if (xhr.status === 200) {
+        content.innerHTML = xhr.responseText;
+      } else if (xhr.status === 404) {
+        content.innerHTML = '<p>Halaman tidak ditemukan.</p>';
+      } else {
+        content.innerHTML = '<p>Ups.. halaman tidak dapat diakses.</p>';
+      }
+    }
+  };
+  if (
+    page === 'ligaIng'
+    || page === 'ligaJer'
+    || page === 'ligaSpn'
+    || page === 'ligaPrc'
+  ) {
+    xhr.open('GET', '/pages/standings.html', true);
+    xhr.send();
+  } else if (urlTeamParameter.length > 0) {
+    xhr.open('GET', '/pages/teams.html', true);
+    xhr.send();
+  } else {
+    xhr.open('GET', `pages/${page}.html`, true);
+    xhr.send();
+  }
+}
+
+window.addEventListener('hashchange', () => {
+  const page = window.location.hash.substr(1);
+  loadPage(page);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   // deklarasi nilai awal variable
   let page = window.location.hash.substr(1);
-  let urlTeamParameter = window.location.hash.substr(9);
   if (page === '') page = 'home';
-
-  // function untuk load page berdasarkan navigasi
-  function loadPage(page) {
-    const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        const content = document.querySelector('#body-content');
-
-        // ngecek page nya
-        if (page === 'ligaIng') {
-          getStandingIng();
-        } else if (page === 'ligaJer') {
-          getStandingJer();
-        } else if (page === 'ligaSpn') {
-          getStandingSpn();
-        } else if (page === 'ligaPrc') {
-          getStandingPrc();
-        } else if (urlTeamParameter.length > 0) {
-          getTeams(urlTeamParameter);
-          urlTeamParameter = '';
-        }
-
-        // perkondisian status XMLHttpRequest
-        if (xhr.status === 200) {
-          content.innerHTML = xhr.responseText;
-        } else if (xhr.status === 404) {
-          content.innerHTML = '<p>Halaman tidak ditemukan.</p>';
-        } else {
-          content.innerHTML = '<p>Ups.. halaman tidak dapat diakses.</p>';
-        }
-      }
-    };
-    if (
-      page === 'ligaIng'
-      || page === 'ligaJer'
-      || page === 'ligaSpn'
-      || page === 'ligaPrc'
-    ) {
-      xhr.open('GET', '/pages/standings.html', true);
-      xhr.send();
-    } else if (urlTeamParameter.length > 0) {
-      xhr.open('GET', '/pages/teams.html', true);
-      xhr.send();
-    } else {
-      xhr.open('GET', `pages/${page}.html`, true);
-      xhr.send();
-    }
-  }
 
   // Fungsi untuk top navbar
   function topNav() {
