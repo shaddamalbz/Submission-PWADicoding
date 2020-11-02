@@ -66,8 +66,18 @@ function showStanding(data) {
 }
 
 function showTeam(team) {
-  let player = '';
+  let playerElm = '';
   const teamsElm = document.getElementById('teams-detail');
+
+  team.squad.forEach((player) => {
+    playerElm += `
+      <div class="z-depth-1 row rounded player-list">
+        <h4>${player.name}</h4>
+        <p>${player.role}</p>
+        <h6>Positition : ${player.position}</h6>
+      </div>
+    `;
+  });
 
   teamsElm.innerHTML = `
   <div class="row rounded title grey darken-4">
@@ -78,6 +88,7 @@ function showTeam(team) {
       <h3 class="text-center white-text">${team.name}</h3>
     </div>
   </div>
+  ${playerElm}
   `;
 }
 
