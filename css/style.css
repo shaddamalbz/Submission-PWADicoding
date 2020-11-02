@@ -60,6 +60,13 @@ a{
   width: 30%;
 }
 
+.player-list{
+  padding: 10px;
+}
+.player-list h4{
+  margin-bottom: 0;
+}
+
 .linked{
   color: #212121;
   font-weight: bold;
@@ -72,11 +79,14 @@ a{
 }
 
 @media screen and (max-width: 600px){
-  h4{
+  h4,.role{
     text-align: center;
   }
   .about-bio{
     margin-top: 0;
+  }
+  .sosmed div{
+    margin: 16px 0;
   }
 }
 
