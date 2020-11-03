@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "idb": "^2.1.3",
+    "install": "^0.13.0",
+    "npm": "^6.14.8"
+  },
   "devDependencies": {
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",
