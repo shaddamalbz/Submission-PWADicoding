@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import idb from 'idb';
 
@@ -23,6 +24,9 @@ function addTeamFav(data) {
       const tx = db.transaction('teamFav', 'readwrite');
       tx.objectStore('teamFav').put(data);
       return tx.complete;
+    })
+    .then(() => {
+      console.log('Team berhasil disimpan ke favorit');
     });
 }
 

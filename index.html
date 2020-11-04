@@ -22,8 +22,10 @@
   </nav>
   <div class="container" id="body-content"></div>
   <script src="js/materialize.min.js"></script>
-  <script src="js/api.js"></script>
+  <script src="js/idb.js"></script>
+  <script src="js/db.js"></script>
   <script src="js/nav.js"></script>
+  <script src="js/api.js"></script>
   <script>
   // REGISTER SERVICE WORKER
   if ('serviceWorker' in navigator) {
@@ -40,13 +42,6 @@
   } else {
     console.log('This browser not support service worker');
   }
-  // tes button save
-  document.addEventListener('DOMContentLoaded', () => {
-    const save = document.getElementById('save');
-    save.onclick = () => {
-      console.log('button ditekan');
-    };
-  });
   </script>
 </body>
 </html>

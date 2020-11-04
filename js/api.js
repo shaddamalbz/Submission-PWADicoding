@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
@@ -90,9 +91,31 @@ function showTeam(team) {
   </div>
   ${playerElm}
   `;
+
+  // Save button
+  const save = document.getElementById('save');
+  save.onclick = () => {
+    console.log('button ditekan');
+    M.toast({ html: `${team.name} Telah Ditambahkan Ke Tim Favorit` });
+    addTeamFav(team);
+  };
+}
+
+function showFavTeam() {
+
 }
 
 function getStandingIng() {
+  if ('caches' in window) {
+    caches.match(endpointIng).then((response) => {
+      if (response) {
+        response.json().then((data) => {
+          console.log(`Competition Data: ${data}`);
+          showStanding(data);
+        });
+      }
+    });
+  }
   fetch(endpointIng, {
     headers: {
       'X-Auth-Token': tokenAPI,
@@ -107,6 +130,16 @@ function getStandingIng() {
 }
 
 function getStandingJer() {
+  if ('caches' in window) {
+    caches.match(endpointJer).then((response) => {
+      if (response) {
+        response.json().then((data) => {
+          console.log(`Competition Data: ${data}`);
+          showStanding(data);
+        });
+      }
+    });
+  }
   fetch(endpointJer, {
     headers: {
       'X-Auth-Token': tokenAPI,
@@ -121,6 +154,16 @@ function getStandingJer() {
 }
 
 function getStandingSpn() {
+  if ('caches' in window) {
+    caches.match(endpointSpn).then((response) => {
+      if (response) {
+        response.json().then((data) => {
+          console.log(`Competition Data: ${data}`);
+          showStanding(data);
+        });
+      }
+    });
+  }
   fetch(endpointSpn, {
     headers: {
       'X-Auth-Token': tokenAPI,
@@ -135,6 +178,16 @@ function getStandingSpn() {
 }
 
 function getStandingPrc() {
+  if ('caches' in window) {
+    caches.match(endPointPrc).then((response) => {
+      if (response) {
+        response.json().then((data) => {
+          console.log(`Competition Data: ${data}`);
+          showStanding(data);
+        });
+      }
+    });
+  }
   fetch(endPointPrc, {
     headers: {
       'X-Auth-Token': tokenAPI,
@@ -158,5 +211,8 @@ function getTeams(id) {
     .then(json)
     .then((team) => {
       showTeam(team);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }
