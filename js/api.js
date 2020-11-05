@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
@@ -127,18 +128,23 @@ function getStandingPrc() {
     .catch(error);
 }
 
-function getTeams(id) {
-  fetch(`${baseURL}teams/${id}`, {
-    headers: {
-      'X-Auth-Token': tokenAPI,
-    },
-  })
-    .then(status)
-    .then(json)
-    .then((team) => {
-      showTeam(team);
+function getTeamsByID() {
+  return new Promise((resolve, reject) => {
+    // Ambil nilai query parameter (?id=)
+    const urlParams = new URLSearchParams(window.location.search);
+    const idParam = urlParams.get('id');
+    fetch(`${baseURL}teams/${idParam}`, {
+      headers: {
+        'X-Auth-Token': tokenAPI,
+      },
     })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then(status)
+      .then(json)
+      .then((data) => {
+        showTeam(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 }

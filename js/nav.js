@@ -19,7 +19,7 @@ function loadPage(page) {
       } else if (page === 'ligaPrc') {
         getStandingPrc();
       } else if (urlTeamParameter.length > 0) {
-        getTeams(urlTeamParameter);
+        getTeamsByID();
         urlTeamParameter = '';
       }
 

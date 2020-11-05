@@ -2,7 +2,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'LigaBola_v1';
+const CACHE_NAME = 'LigaBola_v2';
 const urlsToCache = [
   'index.html',
   '/pages/home.html',
