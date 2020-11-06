@@ -61,9 +61,13 @@ function showTeam(team) {
   ${playerElm}
   `;
   // Save button
+  const item = getTeamsByID();
   const save = document.getElementById('save');
   save.onclick = () => {
     console.log('button ditekan');
     M.toast({ html: `${team.name} Telah Ditambahkan Ke Tim Favorit` });
+    item.then((data) => {
+      addTeamFav(data);
+    });
   };
 }

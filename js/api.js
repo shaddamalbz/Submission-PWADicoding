@@ -131,8 +131,8 @@ function getStandingPrc() {
 function getTeamsByID() {
   return new Promise((resolve, reject) => {
     // Ambil nilai query parameter (?id=)
-    const urlParams = new URLSearchParams(window.location.search);
-    const idParam = urlParams.get('id');
+    const urlParams = new URL(window.location.href.replace('#team', ''));
+    const idParam = urlParams.searchParams.get('id');
     fetch(`${baseURL}teams/${idParam}`, {
       headers: {
         'X-Auth-Token': tokenAPI,
@@ -142,6 +142,8 @@ function getTeamsByID() {
       .then(json)
       .then((data) => {
         showTeam(data);
+        // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
+        resolve(data);
       })
       .catch((error) => {
         console.log(error);
