@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-globals */
 const CACHE_NAME = 'LigaBola_v2';
 const urlsToCache = [
-  '/index.htmlindex.html',
+  '/index.html',
   '/manifest.json',
   '/pages/home.html',
   '/pages/nav.html',
@@ -23,6 +23,7 @@ const urlsToCache = [
   '/js/db.js',
   '/js/idb.js',
   '/js/sw-regis.js',
+  '/js/notifikasi.js',
   'https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJfecg.woff2',
   'https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2',
   'https://fonts.gstatic.com/s/materialicons/v67/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2',
