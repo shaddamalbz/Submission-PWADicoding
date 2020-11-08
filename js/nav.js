@@ -21,6 +21,8 @@ function loadPage(page) {
       } else if (urlTeamParameter.length > 0) {
         getTeamsByID();
         urlTeamParameter = '';
+      } else if (page === 'saved') {
+        getSavedTeams();
       }
 
       // perkondisian status XMLHttpRequest
@@ -43,6 +45,9 @@ function loadPage(page) {
     xhr.send();
   } else if (urlTeamParameter.length > 0) {
     xhr.open('GET', '/pages/teams.html', true);
+    xhr.send();
+  } else if (page === 'saved') {
+    xhr.open('GET', '/pages/saved.html', true);
     xhr.send();
   } else {
     xhr.open('GET', `pages/${page}.html`, true);

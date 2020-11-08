@@ -78,6 +78,13 @@ a{
   margin: 25px 0 0 0;
 }
 
+.fav{
+  padding: auto;
+}
+.fav h3{
+  margin: 10px 0;
+}
+
 @media screen and (max-width: 600px){
   h4,.role{
     text-align: center;

@@ -65,9 +65,33 @@ function showTeam(team) {
   const save = document.getElementById('save');
   save.onclick = () => {
     console.log('button ditekan');
-    M.toast({ html: `${team.name} Telah Ditambahkan Ke Tim Favorit` });
     item.then((data) => {
+      M.toast({ html: `${team.name} Berhasil ditambahkan tim ini ke favorit` });
       addTeamFav(data);
     });
   };
+}
+
+function showSavedTeam(data) {
+  // initial variabel
+  let savedTeams = '';
+  const savedElm = document.getElementById('teams-saved');
+
+  data.forEach((team) => {
+    savedTeams += `
+    <table class="z-depth-1 rounded">
+      <tr class="teams">
+        <td><img src="${team.crestUrl.replace(/^http:\/\//i, 'https://')}" alt="Logo Tim"/></td>
+        <td><a class="linked" href="#team?id=${team.id}">${team.name}</a></td>
+      </tr>
+    </table>
+    `;
+  });
+
+  savedElm.innerHTML = `
+  <div class="row rounded fav grey darken-4">
+    <h3 class="text-center white-text">Team Favorit</h3>
+  </div>
+  ${savedTeams}
+  `;
 }

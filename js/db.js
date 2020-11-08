@@ -1,7 +1,7 @@
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import idb from 'idb';
-
 const dbPromise = idb.open('ligabola', 1, (upgradeDB) => {
   if (!upgradeDB.objectStoreNames.contains('teamFav')) {
     // membuat database baru apabila belum ada
@@ -32,21 +32,26 @@ function addTeamFav(data) {
 
 // READ data
 function getAllTeamFav() {
-  dbPromise
-    .then((db) => {
-      const tx = db.transaction('teamFav', 'readonly');
-      const store = tx.objectStore('teamFav');
-      return store.getAll();
-    });
+  return new Promise((resolve, reject) => {
+    dbPromise
+      .then((db) => {
+        const tx = db.transaction('teamFav', 'readonly');
+        const store = tx.objectStore('teamFav');
+        return store.getAll();
+      })
+      .then((data) => {
+        resolve(data);
+      });
+  });
 }
 
-// check data
+// check data jika diperlukan
 function isExist(id) {
   dbPromise
     .then(async (db) => {
       const tx = await db.transaction('teamFav', 'readonly');
       const data = await tx.objectStore('teamFav').get(id);
-      // return nya blom tau
+      return data === undefined ? false : true;
     });
 }
 

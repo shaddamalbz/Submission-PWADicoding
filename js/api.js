@@ -150,3 +150,10 @@ function getTeamsByID() {
       });
   });
 }
+
+function getSavedTeams() {
+  getAllTeamFav()
+    .then((data) => {
+      showSavedTeam(data);
+    });
+}

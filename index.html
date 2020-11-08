@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <link rel="manifest" href="/manifest.json">
 </head>
 <body>
   <!-- NAVBAR -->
@@ -22,27 +23,13 @@
   </nav>
   <div class="container" id="body-content"></div>
   <script src="/js/materialize.min.js"></script>
+  <script src="/js/sw-regis.js"></script>
   <script src="/js/idb.js"></script>
   <script src="/js/db.js"></script>
   <script src="/js/show.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/nav.js"></script>
   <script>
-  // REGISTER SERVICE WORKER
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then(() => {
-          console.log('Register Service Worker Succesful');
-        })
-        .catch(() => {
-          console.log('Register Service Worker Fail');
-        });
-    });
-  } else {
-    console.log('This browser not support service worker');
-  }
   </script>
 </body>
 </html>
