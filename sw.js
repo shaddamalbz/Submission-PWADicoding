@@ -2,8 +2,9 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'LigaBola_v2';
+const CACHE_NAME = 'LigaBola_v1';
 const urlsToCache = [
+  '/',
   '/index.html',
   '/manifest.json',
   '/pages/home.html',
@@ -14,6 +15,8 @@ const urlsToCache = [
   '/pages/saved.html',
   '/img/goal.svg',
   '/img/Paspoto-square.png',
+  '/img/football-512.png',
+  '/img/football-512-maskable.png',
   '/css/materialize.min.css',
   '/css/style.css',
   '/js/materialize.min.js',
@@ -24,11 +27,9 @@ const urlsToCache = [
   '/js/idb.js',
   '/js/sw-regis.js',
   '/js/notifikasi.js',
-  'https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJfecg.woff2',
-  'https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2',
-  'https://fonts.gstatic.com/s/materialicons/v67/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2',
-  'https://use.fontawesome.com/releases/v5.15.1/css/all.css',
-  'https://fonts.googleapis.com/icon?family=Material+Icons',
+  'https://use.fontawesome.com/releases/v5.15.1/webfonts/fa-brands-400.woff2',
+  'https://use.fontawesome.com/releases/v5.15.1/webfonts/fa-solid-900.woff2',
+  '',
 ];
 
 self.addEventListener('install', (event) => {
@@ -38,21 +39,28 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches
-      .match(event.request, { cacheName: CACHE_NAME })
-      .then((response) => {
-        if (response) {
-          console.log('ServiceWorker: Gunakan aset dari cache: ', response.url);
-          return response;
-        }
-        console.log(
-          'ServiceWorker: Memuat aset dari server: ',
-          event.request.url,
-        );
-        return fetch(event.request);
-      }),
-  );
+  const baseURL = 'https://api.football-data.org/v2/';
+  if (event.request.url.indexOf(baseURL) > -1) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) => fetch(event.request).then((response) => {
+        cache.put(event.request.url, response.clone());
+        return response;
+      })),
+    );
+  } else {
+    event.respondWith(
+      caches
+        .match(event.request, { cacheName: CACHE_NAME })
+        .then((response) => {
+          if (response) {
+            // memuat dari cache
+            return response;
+          }
+          // memuat dari server
+          return fetch(event.request);
+        }),
+    );
+  }
 });
 
 self.addEventListener('activate', (event) => {

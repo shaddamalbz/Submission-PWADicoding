@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
@@ -57,19 +58,35 @@ function showTeam(team) {
     <div class="col s12">
       <h3 class="text-center white-text">${team.name}</h3>
     </div>
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large red" id="btn">
+        <i class="large material-icons" id="btnChange"></i>
+      </a>
+    </div>
   </div>
   ${playerElm}
   `;
-  // Save button
+  // Save/remove button
   const item = getTeamsByID();
-  const save = document.getElementById('save');
-  save.onclick = () => {
+  const btn = document.getElementById('btn');
+  const btnChange = document.getElementById('btnChange');
+  if (isFav(`${team.id}`)) {
+    btnChange.innerHTML = 'delete';
+    btn.onclick = () => {
+      console.log('button ditekan');
+      item.then((data) => {
+        M.toast({ html: `${team.name} Berhasil ditambahkan tim ini ke favorit` });
+        deleteTeamFav(data);
+      });
+    };
+  } else {
+    btnChange.innerHTML = 'add';
     console.log('button ditekan');
     item.then((data) => {
       M.toast({ html: `${team.name} Berhasil ditambahkan tim ini ke favorit` });
       addTeamFav(data);
     });
-  };
+  }
 }
 
 function showSavedTeam(data) {
@@ -79,7 +96,7 @@ function showSavedTeam(data) {
 
   data.forEach((team) => {
     savedTeams += `
-    <table class="z-depth-1 rounded">
+    <table class="z-depth-1 rounded saved">
       <tr class="teams">
         <td><img src="${team.crestUrl.replace(/^http:\/\//i, 'https://')}" alt="Logo Tim"/></td>
         <td><a class="linked" href="#team?id=${team.id}">${team.name}</a></td>

@@ -1,4 +1,24 @@
 {
-  "name": "Push Notifications FCM",
-  "gcm_sender_id": "476030140029"
+  "name": "LIGA BOLA",
+  "shortname": "LIGA BOLA",
+  "gcm_sender_id": "476030140029",
+  "description": "Submission 2 for PWA class on dicoding",
+  "theme_color": "#221122",
+  "background_color": "#ffd480",
+  "display": "standalone",
+  "start_url": "/index.html",
+  "icons": [
+    {
+      "src": "/img/football-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/football-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }

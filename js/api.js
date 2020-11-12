@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 const baseURL = 'https://api.football-data.org/v2/';
-const tokenAPI = '544f016a821c444c94939faab4d0a737';
+const tokenAPI = '536067bb74844b139964b048eba3cb6c';
 
 const endpointIng = `${baseURL}competitions/2021/standings`;
 const endpointJer = `${baseURL}competitions/2002/standings`;
