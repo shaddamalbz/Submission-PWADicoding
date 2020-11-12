@@ -75,17 +75,19 @@ function showTeam(team) {
     btn.onclick = () => {
       console.log('button ditekan');
       item.then((data) => {
-        M.toast({ html: `${team.name} Berhasil ditambahkan tim ini ke favorit` });
+        M.toast({ html: `${team.name} Berhasil menghapus tim ini dari favorit` });
         deleteTeamFav(data);
       });
     };
   } else {
     btnChange.innerHTML = 'add';
-    console.log('button ditekan');
-    item.then((data) => {
-      M.toast({ html: `${team.name} Berhasil ditambahkan tim ini ke favorit` });
-      addTeamFav(data);
-    });
+    btn.onclick = () => {
+      console.log('button ditekan');
+      item.then((data) => {
+        M.toast({ html: `${team.name} Berhasil menambahkan tim ini ke favorit` });
+        addTeamFav(data);
+      });
+    };
   }
 }
 
