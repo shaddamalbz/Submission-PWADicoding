@@ -1,7 +1,30 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
+
+// Save Team
+async function saveTeam(data) {
+  const button = document.getElementById('save');
+  if (await Db.getTeam(data.id)) {
+    button.innerHTML = 'delete';
+  } else {
+    button.innerHTML = 'add';
+  }
+
+  button.addEventListener('click', async () => {
+    const exist = await Db.getTeam(data.id);
+
+    if (exist) {
+      Db.deleteTeam(data.id);
+      M.toast({ html: `${data.name} dihapus dari favorit` });
+    } else {
+      Db.addTeam(data);
+      M.toast({ html: `${data.name} Berhasil menambahkan tim ini ke favorit` });
+    }
+  });
+}
 
 function showStanding(data) {
   let standings = '';
@@ -66,29 +89,7 @@ function showTeam(team) {
   </div>
   ${playerElm}
   `;
-  // Save/remove button
-  const item = getTeamsByID();
-  const btn = document.getElementById('btn');
-  const btnChange = document.getElementById('btnChange');
-  if (isFav(`${team.id}`)) {
-    btnChange.innerHTML = 'delete';
-    btn.onclick = () => {
-      console.log('button ditekan');
-      item.then((data) => {
-        M.toast({ html: `${team.name} Berhasil menghapus tim ini dari favorit` });
-        deleteTeamFav(data);
-      });
-    };
-  } else {
-    btnChange.innerHTML = 'add';
-    btn.onclick = () => {
-      console.log('button ditekan');
-      item.then((data) => {
-        M.toast({ html: `${team.name} Berhasil menambahkan tim ini ke favorit` });
-        addTeamFav(data);
-      });
-    };
-  }
+  saveTeam(team);
 }
 
 function showSavedTeam(data) {
@@ -113,4 +114,5 @@ function showSavedTeam(data) {
   </div>
   ${savedTeams}
   `;
+  saveTeam(data);
 }

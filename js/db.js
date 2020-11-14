@@ -16,51 +16,38 @@ const dbPromise = idb.open('ligabola', 1, (upgradeDB) => {
   }
 });
 
-// add data
-function addTeamFav(data) {
-  dbPromise
-    .then((db) => {
-      // transacation pembungkus untuk menjaga integritas data
+const Db = {
+  addTeam(team) {
+    return dbPromise.then((db) => {
       const tx = db.transaction('teamFav', 'readwrite');
-      tx.objectStore('teamFav').put(data);
+      tx.objectStore('teamFav').put(team);
       return tx.complete;
-    })
-    .then(() => {
-      console.log('Team berhasil disimpan ke favorit');
     });
-}
+  },
 
-// READ data
-function getAllTeamFav() {
-  return new Promise((resolve, reject) => {
-    dbPromise
+  getTeam(id) {
+    return dbPromise
       .then((db) => {
         const tx = db.transaction('teamFav', 'readonly');
-        const store = tx.objectStore('teamFav');
-        return store.getAll();
+        return tx.objectStore('teamFav').get(id);
       })
       .then((data) => {
         resolve(data);
       });
-  });
-}
+  },
 
-// check data jika diperlukan
-function isExist(id) {
-  dbPromise
-    .then(async (db) => {
-      const tx = await db.transaction('teamFav', 'readonly');
-      const data = await tx.objectStore('teamFav').get(id);
-      return data === undefined ? false : true;
+  getAllTeams() {
+    return dbPromise.then((db) => {
+      const tx = db.transaction('teamFav', 'readonly');
+      return tx.objectStore('teamFav').getAll();
     });
-}
+  },
 
-// delete
-function deleteTeamFav(id) {
-  dbPromise
-    .then((db) => {
-      const tx = db.transaction('teamFav', 'readwrite');
-      tx.objectStore('teamFav').delete(id);
-      return tx.complete;
-    });
-}
+  deleteTeam(id) {
+    dbPromise
+      .then((db) => {
+        const tx = db.transaction('teamFav', 'readwrite');
+        return tx.objectStore('teamFav').delete(id);
+      });
+  },
+};

@@ -152,7 +152,7 @@ function getTeamsByID() {
 }
 
 function getSavedTeams() {
-  getAllTeamFav()
+  Db.getAllTeams()
     .then((data) => {
       showSavedTeam(data);
     });
