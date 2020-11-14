@@ -133,6 +133,15 @@ function getTeamsByID() {
     // Ambil nilai query parameter (?id=)
     const urlParams = new URL(window.location.href.replace('#team', ''));
     const idParam = urlParams.searchParams.get('id');
+    if ('caches' in window) {
+      caches.match(`${baseURL}teams/${idParam}`).then((response) => {
+        if (response) {
+          response.json().then((data) => {
+            showTeam(data);
+          });
+        }
+      });
+    }
     fetch(`${baseURL}teams/${idParam}`, {
       headers: {
         'X-Auth-Token': tokenAPI,
